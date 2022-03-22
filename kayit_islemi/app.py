@@ -1,16 +1,8 @@
 from tkinter import *
 import time
-from cv2 import waitKey
-
-from matplotlib.pyplot import text
-#isminiz = input('İsim: ')
-#parolaniz = input('Parola: ')
-#yasiniz = int(input('Yasiniz :'))
 
 
-#kullanici bilgileri bunlar isminiz:demo,parola:demo123,yas:18
 bilgiler = ("demo","demo123",'18')
-# 3 defa yeniden deneme hakkiniz vardir!
 denemeHakki = 3
 zaman = 0
 def girisYap():
@@ -20,7 +12,6 @@ def girisYap():
         if time.time()-zaman >= 5:
             denemeHakki = 3
         else:
-         #denema hakkiniz bitdikden sonra(3 deneme hakki) 5 saniye bekliyiceksiniz.
             sonuc.config(text = u"Lutfen 5 saniye bekleyiniz.")
             return False
     
@@ -29,30 +20,26 @@ def girisYap():
     yas = age.get()
     print (kAdi, " - ", parola, " - ", yas)
     print ("Kontrol ediliyor ...")
-    
-    #kullanici ismi,parola,yas, bilgiler ile eşitse giriş işlemi tamamlanır.
     if kAdi == bilgiler[0] and parola == bilgiler[1] and yas == bilgiler[2]:
         print ("Bilgiler dogru!")
         sonuc.config(text = u"Oturum acma islemi basarili.")
-        #kullanici bilgileri doğrulandıkdan sonra ekran temizleme fonksiyonu çalışır.
         ekraniTemizle()
-        #kullanci bilgileri doğrulandıkdan sonra,bilgiler konsola yazdırılır.
-        veri = (f"""
-        Isim: {kAdi}
-        Parola: {parola}
-        Yas: {yas}
-        """)
-        print(veri)
-    #bilgiler eşleşmiyorsa çalışacak durum.
+        veri = (f"""Isim: {kAdi}
+Parola: {parola}
+Yas: {yas}""")
+        file_created = open('C:\\Users\\user\Desktop\\Devoloper\\python\\lecture\\projects\\kayit_islemi\\veri_tabani.txt', 'w')
+        file_created.write(veri)
+        file_created.close()
+        #time.sleep(3)
+        #exit()
+        
     else:
         print ("Bilgiler yanlis!")
-      #deneme hakki her yanlış cevapda 1 defa eksilir.3 deneme hakkı!
         denemeHakki -= 1
         if denemeHakki == 0:
             zaman = time.time()
         sonuc.config(text = u"Bilgiler yanlis. Kalan deneme hakki: %d" %denemeHakki)
         
-#ekran temizleme fonksiyonu        
 def ekraniTemizle():
     karsilama.config(text = u"Hosgeldin, Demo!")
     isimSor.destroy()
@@ -65,7 +52,6 @@ def ekraniTemizle():
 
 pencere = Tk()
 
-#pencere başlığı.
 pencere.title(u"X.com.tr - Python Project")
 pencere.geometry("290x200+100+100")
 
@@ -101,6 +87,5 @@ buton.pack()
 sonuc = Label(pencere)
 sonuc.config(text = u"Giris yapilmadi.")
 sonuc.pack()
-
 
 mainloop ()
